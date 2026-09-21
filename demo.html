@@ -1,0 +1,2531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>腾讯文档 · AI伙伴</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:#f7f8fa;
+  color:#202124;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",
+  "PingFang SC","Microsoft YaHei",sans-serif;
+}
+
+button,input,textarea{
+  font-family:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+/* =========================
+   APP
+========================= */
+
+.app{
+  height:100vh;
+  display:flex;
+  overflow:hidden;
+}
+
+.sidebar{
+  width:220px;
+  flex-shrink:0;
+  background:#fff;
+  border-right:1px solid #e8eaed;
+  padding:16px 12px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:8px 10px 25px;
+  font-size:17px;
+  font-weight:700;
+}
+
+.logo-icon{
+  width:28px;
+  height:28px;
+  border-radius:7px;
+  background:#1677ff;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:13px;
+}
+
+.nav{
+  height:38px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:0 11px;
+  border-radius:7px;
+  font-size:13px;
+  color:#666;
+  margin-bottom:3px;
+}
+
+.nav.active{
+  background:#eaf3ff;
+  color:#1677ff;
+  font-weight:600;
+}
+
+.nav-icon{
+  width:18px;
+  text-align:center;
+}
+
+.side-title{
+  color:#a0a3a8;
+  font-size:11px;
+  padding:22px 10px 7px;
+}
+
+.partner-mini{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:9px 10px;
+  border-radius:7px;
+  cursor:pointer;
+}
+
+.partner-mini:hover{
+  background:#f5f6f7;
+}
+
+.mini-avatar{
+  width:30px;
+  height:30px;
+  border-radius:8px;
+  background:#f0f2f5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.mini-info{
+  min-width:0;
+}
+
+.mini-name{
+  font-size:12px;
+  font-weight:600;
+}
+
+.mini-role{
+  color:#999;
+  font-size:10px;
+  margin-top:2px;
+}
+
+.green-dot{
+  margin-left:auto;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#35a866;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+  flex:1;
+  min-width:0;
+  overflow:auto;
+}
+
+.topbar{
+  height:62px;
+  background:#fff;
+  border-bottom:1px solid #e8eaed;
+  display:flex;
+  align-items:center;
+  padding:0 30px;
+}
+
+.search{
+  width:320px;
+  height:34px;
+  background:#f6f7f8;
+  border:1px solid #e3e6e9;
+  border-radius:7px;
+  display:flex;
+  align-items:center;
+  padding:0 12px;
+  color:#999;
+  font-size:12px;
+}
+
+.top-actions{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.top-btn{
+  border:0;
+  background:#f5f6f7;
+  padding:8px 12px;
+  border-radius:7px;
+  font-size:12px;
+}
+
+.user{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:#ddd;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* =========================
+   HOME
+========================= */
+
+.home{
+  max-width:1160px;
+  margin:auto;
+  padding:30px 34px 70px;
+}
+
+.welcome{
+  margin-bottom:25px;
+}
+
+.welcome h1{
+  margin:0;
+  font-size:24px;
+}
+
+.welcome p{
+  color:#999;
+  font-size:12px;
+  margin:7px 0 0;
+}
+
+.create-row{
+  display:flex;
+  gap:9px;
+  margin-bottom:27px;
+}
+
+.new-btn{
+  border:0;
+  background:#1677ff;
+  color:#fff;
+  border-radius:7px;
+  padding:10px 17px;
+  font-size:13px;
+}
+
+.quick-btn{
+  border:1px solid #e3e6e9;
+  background:#fff;
+  border-radius:7px;
+  padding:9px 14px;
+  color:#555;
+  font-size:12px;
+}
+
+.section-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:10px;
+}
+
+.section-title{
+  font-size:15px;
+  font-weight:650;
+}
+
+.more{
+  color:#999;
+  font-size:11px;
+  cursor:pointer;
+}
+
+/* =========================
+   COMPACT PARTNERS
+========================= */
+
+.partner-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-bottom:27px;
+}
+
+.partner-card{
+  background:#fff;
+  border:1px solid #e4e7eb;
+  border-radius:9px;
+  padding:13px 14px;
+  cursor:pointer;
+  transition:.15s;
+  min-width:0;
+}
+
+.partner-card:hover{
+  border-color:#cbd1d8;
+  box-shadow:0 3px 12px rgba(0,0,0,.04);
+}
+
+.partner-top{
+  display:flex;
+  align-items:center;
+  min-width:0;
+}
+
+.partner-avatar{
+  width:34px;
+  height:34px;
+  border-radius:9px;
+  background:#f0f2f5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:17px;
+  margin-right:9px;
+  flex-shrink:0;
+}
+
+.partner-main{
+  min-width:0;
+}
+
+.partner-name{
+  font-size:12px;
+  font-weight:650;
+  white-space:nowrap;
+}
+
+.partner-role{
+  color:#999;
+  font-size:10px;
+  margin-top:2px;
+  white-space:nowrap;
+}
+
+.status{
+  margin-left:auto;
+  color:#31885a;
+  background:#edf8f1;
+  border-radius:20px;
+  padding:3px 6px;
+  font-size:9px;
+  white-space:nowrap;
+}
+
+.maintain{
+  margin-top:10px;
+  display:flex;
+  align-items:center;
+  min-width:0;
+}
+
+.maintain-label{
+  color:#aaa;
+  font-size:9px;
+  margin-right:6px;
+  flex-shrink:0;
+}
+
+.document-name{
+  font-size:10px;
+  color:#555;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.partner-footer{
+  margin-top:9px;
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  color:#aaa;
+  font-size:9px;
+}
+
+.create-partner-card{
+  background:#fff;
+  border:1px dashed #d8dde3;
+  border-radius:9px;
+  padding:13px 14px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  transition:.15s;
+  min-height:91px;
+}
+
+.create-partner-card:hover{
+  border-color:#8db9f5;
+  background:#fbfdff;
+}
+
+.create-partner-icon{
+  width:34px;
+  height:34px;
+  border-radius:9px;
+  background:#f5f6f7;
+  color:#777;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:19px;
+  margin-right:9px;
+}
+
+.create-partner-title{
+  font-size:12px;
+  font-weight:600;
+  color:#555;
+}
+
+.create-partner-desc{
+  color:#aaa;
+  font-size:9px;
+  margin-top:3px;
+}
+
+/* =========================
+   DOCUMENTS
+========================= */
+
+.documents{
+  background:#fff;
+  border:1px solid #e4e7eb;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.document-row{
+  height:55px;
+  display:flex;
+  align-items:center;
+  padding:0 18px;
+  border-bottom:1px solid #f0f1f2;
+  cursor:pointer;
+}
+
+.document-row:last-child{
+  border-bottom:0;
+}
+
+.document-row:hover{
+  background:#fafafa;
+}
+
+.file-icon{
+  width:32px;
+  font-size:18px;
+}
+
+.file-name{
+  font-size:12px;
+}
+
+.file-info{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  gap:17px;
+  color:#aaa;
+  font-size:10px;
+}
+
+.ai-tag{
+  color:#31885a;
+  background:#edf8f1;
+  padding:4px 7px;
+  border-radius:5px;
+}
+
+/* =========================
+   PARTNER PAGE
+========================= */
+
+.partner-page{
+  display:none;
+}
+
+.partner-page.show{
+  display:block;
+}
+
+.partner-page-inner{
+  max-width:1200px;
+  margin:auto;
+  padding:26px 34px 60px;
+}
+
+.partner-header{
+  display:flex;
+  align-items:center;
+  margin-bottom:25px;
+}
+
+.back{
+  border:0;
+  background:transparent;
+  color:#777;
+  font-size:12px;
+  margin-right:15px;
+}
+
+.big-avatar{
+  width:54px;
+  height:54px;
+  border-radius:14px;
+  background:#eef0f2;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:27px;
+  margin-right:13px;
+}
+
+.partner-page-name{
+  font-size:20px;
+  font-weight:700;
+}
+
+.partner-page-role{
+  color:#999;
+  font-size:12px;
+  margin-top:4px;
+}
+
+.header-status{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.pause-btn,
+.settings-btn{
+  border:1px solid #e2e5e8;
+  background:#fff;
+  border-radius:7px;
+  padding:8px 12px;
+  font-size:11px;
+  color:#555;
+}
+
+.work-status{
+  color:#31885a;
+  background:#edf8f1;
+  padding:6px 9px;
+  border-radius:20px;
+  font-size:10px;
+}
+
+.partner-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 320px;
+  gap:18px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid #e4e7eb;
+  border-radius:10px;
+}
+
+.current-work{
+  padding:20px;
+  margin-bottom:18px;
+}
+
+.card-title{
+  font-size:14px;
+  font-weight:650;
+  margin-bottom:15px;
+}
+
+.work-document{
+  background:#f7f8fa;
+  border-radius:9px;
+  padding:15px;
+  display:flex;
+  align-items:center;
+}
+
+.doc-icon{
+  width:38px;
+  height:38px;
+  border-radius:9px;
+  background:#fff;
+  border:1px solid #e7e9ec;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-right:11px;
+  font-size:17px;
+}
+
+.doc-title{
+  font-size:13px;
+  font-weight:600;
+}
+
+.doc-sub{
+  color:#999;
+  font-size:10px;
+  margin-top:4px;
+}
+
+.open-doc{
+  margin-left:auto;
+  border:1px solid #ddd;
+  background:#fff;
+  border-radius:6px;
+  padding:7px 10px;
+  font-size:10px;
+}
+
+.work-log{
+  padding:20px;
+}
+
+.log-item{
+  display:flex;
+  gap:11px;
+  position:relative;
+  padding-bottom:19px;
+}
+
+.log-line{
+  position:absolute;
+  left:8px;
+  top:19px;
+  bottom:0;
+  width:1px;
+  background:#e7e9eb;
+}
+
+.log-dot{
+  width:17px;
+  height:17px;
+  border-radius:50%;
+  background:#edf0f2;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:9px;
+  flex-shrink:0;
+  z-index:2;
+}
+
+.log-dot.green{
+  background:#eaf6ee;
+  color:#31885a;
+}
+
+.log-content{
+  min-width:0;
+}
+
+.log-text{
+  font-size:12px;
+  line-height:1.5;
+}
+
+.log-time{
+  font-size:10px;
+  color:#aaa;
+  margin-top:3px;
+}
+
+.right-card{
+  padding:19px;
+  margin-bottom:18px;
+}
+
+.right-title{
+  font-size:13px;
+  font-weight:650;
+  margin-bottom:14px;
+}
+
+.rule{
+  padding:9px 0;
+  border-bottom:1px solid #f0f1f2;
+  font-size:11px;
+  line-height:1.6;
+}
+
+.rule-label{
+  color:#999;
+  font-size:10px;
+  margin-bottom:2px;
+}
+
+.sources{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+.source{
+  background:#f7f8fa;
+  padding:9px;
+  border-radius:6px;
+  font-size:11px;
+}
+
+/* =========================
+   CREATE MODAL
+========================= */
+
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.28);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+}
+
+.overlay.show{
+  display:flex;
+}
+
+.modal{
+  width:620px;
+  background:#fff;
+  border-radius:15px;
+  padding:27px;
+  box-shadow:0 18px 60px rgba(0,0,0,.16);
+}
+
+.modal-title{
+  font-size:19px;
+  font-weight:700;
+}
+
+.modal-desc{
+  color:#999;
+  font-size:12px;
+  margin-top:7px;
+  margin-bottom:19px;
+}
+
+/* =========================
+   BIG INPUT
+========================= */
+
+.big-input{
+  border:1px solid #dfe3e8;
+  border-radius:12px;
+  overflow:hidden;
+  background:#fff;
+  transition:.15s;
+}
+
+.big-input:focus-within{
+  border-color:#8db9f5;
+  box-shadow:0 0 0 3px rgba(22,119,255,.07);
+}
+
+.big-input textarea{
+  width:100%;
+  height:115px;
+  border:0;
+  outline:0;
+  resize:none;
+  padding:15px 16px 8px;
+  font-size:13px;
+  line-height:1.7;
+}
+
+.big-input textarea::placeholder{
+  color:#aaa;
+}
+
+/* =========================
+   INPUT FOOTER
+========================= */
+
+.input-bottom{
+  min-height:47px;
+  padding:7px 9px;
+  border-top:1px solid #f0f1f2;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+.input-action{
+  border:0;
+  background:#f6f7f8;
+  color:#666;
+  border-radius:6px;
+  padding:7px 10px;
+  font-size:10px;
+}
+
+.input-action:hover{
+  background:#eef2f6;
+}
+
+.config-chip{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  border:0;
+  background:#eef5ff;
+  color:#2769b1;
+  border-radius:6px;
+  padding:7px 9px;
+  font-size:10px;
+}
+
+.config-chip .remove{
+  color:#8aa2bc;
+  cursor:pointer;
+  font-size:12px;
+  margin-left:2px;
+}
+
+.input-hint{
+  margin-left:auto;
+  color:#aaa;
+  font-size:9px;
+}
+
+/* =========================
+   EXAMPLES
+========================= */
+
+.examples{
+  display:flex;
+  gap:7px;
+  margin-top:9px;
+}
+
+.example{
+  border:1px solid #e3e6e9;
+  background:#fff;
+  border-radius:20px;
+  padding:6px 10px;
+  font-size:10px;
+  color:#777;
+}
+
+/* =========================
+   CREATE FOOTER
+========================= */
+
+.create-summary{
+  margin-top:17px;
+  padding:12px 13px;
+  background:#f7f8fa;
+  border-radius:8px;
+  color:#777;
+  font-size:10px;
+  line-height:1.7;
+}
+
+.create-summary strong{
+  color:#222;
+}
+
+.modal-footer{
+  display:flex;
+  justify-content:flex-end;
+  margin-top:18px;
+}
+
+.cancel{
+  border:0;
+  background:#f1f2f4;
+  border-radius:7px;
+  padding:9px 15px;
+  font-size:11px;
+  margin-right:8px;
+}
+
+.create{
+  border:0;
+  background:#1677ff;
+  color:#fff;
+  border-radius:7px;
+  padding:9px 17px;
+  font-size:11px;
+}
+
+/* =========================
+   SELECT POPUP
+========================= */
+
+.select-popup{
+  position:fixed;
+  width:310px;
+  background:#fff;
+  border:1px solid #e3e6e9;
+  border-radius:10px;
+  box-shadow:0 10px 35px rgba(0,0,0,.13);
+  padding:8px;
+  z-index:200;
+  display:none;
+}
+
+.select-popup.show{
+  display:block;
+}
+
+.popup-title{
+  padding:7px 9px 9px;
+  font-size:11px;
+  font-weight:650;
+}
+
+.popup-item{
+  padding:10px;
+  border-radius:7px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  cursor:pointer;
+}
+
+.popup-item:hover{
+  background:#f5f7f9;
+}
+
+.popup-icon{
+  width:28px;
+  height:28px;
+  border-radius:6px;
+  background:#f2f3f5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.popup-main{
+  font-size:11px;
+}
+
+.popup-sub{
+  color:#999;
+  font-size:9px;
+  margin-top:2px;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+  position:fixed;
+  right:25px;
+  bottom:25px;
+  background:#202124;
+  color:#fff;
+  padding:12px 16px;
+  border-radius:8px;
+  font-size:11px;
+  opacity:0;
+  transform:translateY(10px);
+  transition:.2s;
+  pointer-events:none;
+  z-index:300;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+@media(max-width:1000px){
+
+  .partner-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:900px){
+
+  .sidebar{
+    width:180px;
+  }
+
+  .partner-layout{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:700px){
+
+  .partner-grid{
+    grid-template-columns:1fr;
+  }
+
+  .modal{
+    width:92%;
+  }
+
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar">
+
+  <div class="logo">
+    <div class="logo-icon">文</div>
+    腾讯文档
+  </div>
+
+  <div class="nav active">
+    <span class="nav-icon">⌂</span>
+    首页
+  </div>
+
+  <div class="nav">
+    <span class="nav-icon">◷</span>
+    最近
+  </div>
+
+  <div class="nav">
+    <span class="nav-icon">★</span>
+    我的收藏
+  </div>
+
+  <div class="nav">
+    <span class="nav-icon">☁</span>
+    我的云盘
+  </div>
+
+  <div class="side-title">
+    我的伙伴
+  </div>
+
+  <div
+    class="partner-mini"
+    onclick="openPartner()">
+
+    <div class="mini-avatar">🤖</div>
+
+    <div class="mini-info">
+      <div class="mini-name">小周</div>
+      <div class="mini-role">周报伙伴</div>
+    </div>
+
+    <div class="green-dot"></div>
+
+  </div>
+
+  <div
+    class="partner-mini"
+    onclick="openPartner()">
+
+    <div class="mini-avatar">📊</div>
+
+    <div class="mini-info">
+      <div class="mini-name">小林</div>
+      <div class="mini-role">数据伙伴</div>
+    </div>
+
+  </div>
+
+  <div
+    class="partner-mini"
+    onclick="openCreate()">
+
+    <div class="mini-avatar">＋</div>
+
+    <div class="mini-info">
+      <div class="mini-name">创建伙伴</div>
+    </div>
+
+  </div>
+
+</aside>
+
+
+<main class="main">
+
+<!-- =========================
+     TOPBAR
+========================= -->
+
+<div class="topbar">
+
+  <div class="search">
+    🔍&nbsp;&nbsp;搜索文档、伙伴、内容
+  </div>
+
+  <div class="top-actions">
+    <button class="top-btn">帮助</button>
+    <div class="user">👤</div>
+  </div>
+
+</div>
+
+
+<!-- =========================
+     HOME
+========================= -->
+
+<div class="home" id="homePage">
+
+  <div class="welcome">
+
+    <h1>工作台</h1>
+
+    <p>
+      文档在这里，伙伴也在这里。
+    </p>
+
+  </div>
+
+
+  <div class="create-row">
+
+    <button
+      class="new-btn"
+      onclick="openCreate()">
+      ＋ 新建伙伴
+    </button>
+
+    <button class="quick-btn">
+      📄 文档
+    </button>
+
+    <button class="quick-btn">
+      📊 表格
+    </button>
+
+    <button class="quick-btn">
+      📑 PPT
+    </button>
+
+  </div>
+
+
+  <!-- =========================
+       COMPACT PARTNERS
+  ========================= -->
+
+  <div class="section-header">
+
+    <div class="section-title">
+      我的伙伴
+    </div>
+
+    <div
+      class="more"
+      onclick="showToast('伙伴列表功能')">
+      查看全部 →
+    </div>
+
+  </div>
+
+
+  <div class="partner-grid">
+
+    <!-- 小周 -->
+
+    <div
+      class="partner-card"
+      onclick="openPartner()">
+
+      <div class="partner-top">
+
+        <div class="partner-avatar">
+          🤖
+        </div>
+
+        <div class="partner-main">
+
+          <div class="partner-name">
+            小周
+          </div>
+
+          <div class="partner-role">
+            周报伙伴
+          </div>
+
+        </div>
+
+        <div class="status">
+          ● 工作中
+        </div>
+
+      </div>
+
+
+      <div class="maintain">
+
+        <div class="maintain-label">
+          维护
+        </div>
+
+        <div class="document-name">
+          📄 2026年第38周工作周报
+        </div>
+
+      </div>
+
+
+      <div class="partner-footer">
+
+        <span>
+          今天 14:32 更新
+        </span>
+
+        <span>
+          12 份资料
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- 小林 -->
+
+    <div
+      class="partner-card"
+      onclick="openPartner()">
+
+      <div class="partner-top">
+
+        <div class="partner-avatar">
+          📊
+        </div>
+
+        <div class="partner-main">
+
+          <div class="partner-name">
+            小林
+          </div>
+
+          <div class="partner-role">
+            数据分析伙伴
+          </div>
+
+        </div>
+
+        <div class="status">
+          ● 工作中
+        </div>
+
+      </div>
+
+
+      <div class="maintain">
+
+        <div class="maintain-label">
+          维护
+        </div>
+
+        <div class="document-name">
+          📊 2026年9月销售数据分析
+        </div>
+
+      </div>
+
+
+      <div class="partner-footer">
+
+        <span>
+          今天 13:10 更新
+        </span>
+
+        <span>
+          发现 3 个异常
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- 创建伙伴 -->
+
+    <div
+      class="create-partner-card"
+      onclick="openCreate()">
+
+      <div class="create-partner-icon">
+        ＋
+      </div>
+
+      <div>
+
+        <div class="create-partner-title">
+          创建一个伙伴
+        </div>
+
+        <div class="create-partner-desc">
+          交代一次，让它持续工作
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       DOCUMENTS
+  ========================= -->
+
+  <div class="section-header">
+
+    <div class="section-title">
+      最近文档
+    </div>
+
+    <div
+      class="more"
+      onclick="showToast('文档列表功能')">
+      查看全部 →
+    </div>
+
+  </div>
+
+
+  <div class="documents">
+
+    <div class="document-row">
+
+      <div class="file-icon">📄</div>
+
+      <div class="file-name">
+        2026年第38周工作周报
+      </div>
+
+      <div class="file-info">
+
+        <span class="ai-tag">
+          🤖 小周维护中
+        </span>
+
+        <span>
+          今天 14:32
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="document-row">
+
+      <div class="file-icon">📊</div>
+
+      <div class="file-name">
+        2026年9月销售数据分析
+      </div>
+
+      <div class="file-info">
+
+        <span class="ai-tag">
+          🤖 小林维护中
+        </span>
+
+        <span>
+          今天 13:10
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="document-row">
+
+      <div class="file-icon">📄</div>
+
+      <div class="file-name">
+        产品项目进度表
+      </div>
+
+      <div class="file-info">
+        昨天 18:22
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     PARTNER PAGE
+========================= -->
+
+<div
+  class="partner-page"
+  id="partnerPage">
+
+  <div class="partner-page-inner">
+
+    <div class="partner-header">
+
+      <button
+        class="back"
+        onclick="goHome()">
+        ← 返回首页
+      </button>
+
+      <div class="big-avatar">
+        🤖
+      </div>
+
+      <div>
+
+        <div class="partner-page-name">
+          小周
+        </div>
+
+        <div class="partner-page-role">
+          周报伙伴
+        </div>
+
+      </div>
+
+      <div class="header-status">
+
+        <div class="work-status">
+          ● 正在工作
+        </div>
+
+        <button
+          class="pause-btn"
+          onclick="showToast('伙伴已暂停')">
+          暂停工作
+        </button>
+
+        <button
+          class="settings-btn"
+          onclick="showToast('打开伙伴设置')">
+          设置
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="partner-layout">
+
+      <div>
+
+        <div class="card current-work">
+
+          <div class="card-title">
+            当前工作
+          </div>
+
+          <div class="work-document">
+
+            <div class="doc-icon">
+              📄
+            </div>
+
+            <div>
+
+              <div class="doc-title">
+                2026年第38周工作周报
+              </div>
+
+              <div class="doc-sub">
+                今天 14:32 更新 · 正在持续维护
+              </div>
+
+            </div>
+
+            <button
+              class="open-doc"
+              onclick="showToast('打开：2026年第38周工作周报')">
+              打开文档
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="card work-log">
+
+          <div class="card-title">
+            工作记录
+          </div>
+
+          <div class="log-item">
+
+            <div class="log-dot green">✓</div>
+
+            <div class="log-line"></div>
+
+            <div class="log-content">
+
+              <div class="log-text">
+                检查了产品团队工作资料
+              </div>
+
+              <div class="log-time">
+                今天 14:20
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="log-item">
+
+            <div class="log-dot green">✓</div>
+
+            <div class="log-line"></div>
+
+            <div class="log-content">
+
+              <div class="log-text">
+                找到 12 份本周新增资料
+              </div>
+
+              <div class="log-time">
+                今天 14:23
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="log-item">
+
+            <div class="log-dot green">✓</div>
+
+            <div class="log-line"></div>
+
+            <div class="log-content">
+
+              <div class="log-text">
+                提取了 8 条项目进展
+              </div>
+
+              <div class="log-time">
+                今天 14:27
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="log-item">
+
+            <div class="log-dot green">✓</div>
+
+            <div class="log-content">
+
+              <div class="log-text">
+                已更新「2026年第38周工作周报」
+              </div>
+
+              <div class="log-time">
+                今天 14:32
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div>
+
+        <div class="card right-card">
+
+          <div class="right-title">
+            工作配置
+          </div>
+
+          <div class="rule">
+
+            <div class="rule-label">
+              工作目标
+            </div>
+
+            每周维护产品团队周报。
+
+          </div>
+
+          <div class="rule">
+
+            <div class="rule-label">
+              资料来源
+            </div>
+
+            产品团队云盘 + 项目任务表 +
+            会议纪要
+
+          </div>
+
+          <div class="rule">
+
+            <div class="rule-label">
+              成品形式
+            </div>
+
+            在线文档
+
+          </div>
+
+          <div class="rule">
+
+            <div class="rule-label">
+              工作频率
+            </div>
+
+            每天 18:00
+
+          </div>
+
+        </div>
+
+
+        <div class="card right-card">
+
+          <div class="right-title">
+            工作资料
+          </div>
+
+          <div class="sources">
+
+            <div class="source">
+              📁 产品团队云盘
+            </div>
+
+            <div class="source">
+              📄 项目任务表
+            </div>
+
+            <div class="source">
+              📄 产品团队会议纪要
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</main>
+
+</div>
+
+
+<!-- =====================================================
+     CREATE MODAL
+===================================================== -->
+
+<div
+  class="overlay"
+  id="createOverlay">
+
+  <div class="modal">
+
+    <div class="modal-title">
+      创建一个伙伴
+    </div>
+
+    <div class="modal-desc">
+      交代一次，它会持续工作。
+    </div>
+
+
+    <div class="big-input">
+
+      <textarea
+        id="createPrompt"
+        placeholder="例如：帮我每天整理产品团队的工作进展，每周五生成一份周报。"></textarea>
+
+
+      <div class="input-bottom" id="inputBottom">
+
+        <button
+          class="input-action"
+          onclick="openSourcePopup(event)">
+          ＋ 添加资料
+        </button>
+
+
+        <button
+          class="input-action"
+          onclick="openOutputPopup(event)">
+          ＋ 添加成品
+        </button>
+
+
+        <div class="input-hint">
+          支持自然语言描述
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="examples">
+
+      <button
+        class="example"
+        onclick="setPrompt('帮我每天整理产品团队的工作进展，每周五生成一份周报。')">
+        整理周报
+      </button>
+
+      <button
+        class="example"
+        onclick="setPrompt('帮我持续分析销售数据，发现异常并形成分析报告。')">
+        分析数据
+      </button>
+
+      <button
+        class="example"
+        onclick="setPrompt('帮我持续收集竞品信息并形成竞品分析。')">
+        跟踪竞品
+      </button>
+
+    </div>
+
+
+    <div class="create-summary" id="createSummary">
+
+      <strong>工作配置：</strong>
+
+      等待你的任务描述、资料来源和成品形式。
+
+    </div>
+
+
+    <div class="modal-footer">
+
+      <button
+        class="cancel"
+        onclick="closeCreate()">
+        取消
+      </button>
+
+      <button
+        class="create"
+        onclick="createPartner()">
+        创建伙伴并开始工作 →
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     SOURCE POPUP
+===================================================== -->
+
+<div
+  class="select-popup"
+  id="sourcePopup">
+
+  <div class="popup-title">
+    选择资料来源
+  </div>
+
+
+  <div
+    class="popup-item"
+    onclick="addSource('☁','产品团队云盘')">
+
+    <div class="popup-icon">☁</div>
+
+    <div>
+      <div class="popup-main">
+        产品团队云盘
+      </div>
+
+      <div class="popup-sub">
+        自动读取新增资料
+      </div>
+    </div>
+
+  </div>
+
+
+  <div
+    class="popup-item"
+    onclick="addSource('📁','指定文件夹')">
+
+    <div class="popup-icon">📁</div>
+
+    <div>
+      <div class="popup-main">
+        指定文件夹
+      </div>
+
+      <div class="popup-sub">
+        选择一个文件夹
+      </div>
+    </div>
+
+  </div>
+
+
+  <div
+    class="popup-item"
+    onclick="addSource('📄','项目任务表')">
+
+    <div class="popup-icon">📄</div>
+
+    <div>
+      <div class="popup-main">
+        项目任务表
+      </div>
+
+      <div class="popup-sub">
+        选择已有文档
+      </div>
+    </div>
+
+  </div>
+
+
+  <div
+    class="popup-item"
+    onclick="addSource('📄','会议纪要')">
+
+    <div class="popup-icon">📄</div>
+
+    <div>
+      <div class="popup-main">
+        产品团队会议纪要
+      </div>
+
+      <div class="popup-sub">
+        选择已有文档
+      </div>
+    </div>
+
+  </div>
+
+
+  <div
+    class="popup-item"
+    onclick="addSource('⬆️','上传文件')">
+
+    <div class="popup-icon">⬆️</div>
+
+    <div>
+      <div class="popup-main">
+        上传文件
+      </div>
+
+      <div class="popup-sub">
+        PDF / Word / Excel 等
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     OUTPUT POPUP
+===================================================== -->
+
+<div
+  class="select-popup"
+  id="outputPopup">
+
+  <div class="popup-title">
+    选择成品形式
+  </div>
+
+
+  <div
+    class="popup-item"
+    onclick="addOutput('📄','文档')">
+
+    <div class="popup-icon">📄</div>
+
+    <div>
+      <div class="popup-main">
+        文档
+      </div>
+
+      <div class="popup-sub">
+        周报、方案、总结
+      </div>
+    </div>
+
+  </div>
+
+
+  <div
+    class="popup-item"
+    onclick="addOutput('📊','表格')">
+
+    <div class="popup-icon">📊</div>
+
+    <div>
+      <div class="popup-main">
+        表格
+      </div>
+
+      <div class="popup-sub">
+        数据、清单、台账
+      </div>
+    </div>
+
+  </div>
+
+
+  <div
+    class="popup-item"
+    onclick="addOutput('📑','PPT')">
+
+    <div class="popup-icon">📑</div>
+
+    <div>
+      <div class="popup-main">
+        PPT
+      </div>
+
+      <div class="popup-sub">
+        汇报、方案、展示
+      </div>
+    </div>
+
+  </div>
+
+
+  <div
+    class="popup-item"
+    onclick="addOutput('📈','分析报告')">
+
+    <div class="popup-icon">📈</div>
+
+    <div>
+      <div class="popup-main">
+        分析报告
+      </div>
+
+      <div class="popup-sub">
+        数据分析、洞察
+      </div>
+    </div>
+
+  </div>
+
+
+  <div
+    class="popup-item"
+    onclick="addOutput('🖼️','海报 / 图片')">
+
+    <div class="popup-icon">🖼️</div>
+
+    <div>
+      <div class="popup-main">
+        海报 / 图片
+      </div>
+
+      <div class="popup-sub">
+        视觉内容
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div
+  class="toast"
+  id="toast">
+</div>
+
+
+<script>
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let sources=[];
+let output=null;
+
+
+/* =====================================================
+   CREATE
+===================================================== */
+
+function openCreate(){
+
+  document
+    .getElementById("createOverlay")
+    .classList.add("show");
+
+}
+
+
+function closeCreate(){
+
+  document
+    .getElementById("createOverlay")
+    .classList.remove("show");
+
+  closePopups();
+
+}
+
+
+function setPrompt(text){
+
+  document
+    .getElementById("createPrompt")
+    .value=text;
+
+  updateSummary();
+
+}
+
+
+/* =====================================================
+   SOURCE
+===================================================== */
+
+function openSourcePopup(event){
+
+  event.stopPropagation();
+
+  closeOutputPopup();
+
+  const popup=
+    document.getElementById("sourcePopup");
+
+  const rect=
+    event.currentTarget.getBoundingClientRect();
+
+  popup.style.left=
+    Math.min(
+      rect.left,
+      window.innerWidth-popup.offsetWidth-15
+    )+"px";
+
+  popup.style.top=
+    (rect.bottom+8)+"px";
+
+  popup.classList.add("show");
+
+}
+
+
+function addSource(icon,name){
+
+  if(
+    !sources.some(
+      item=>item.name===name
+    )
+  ){
+
+    sources.push({
+      icon,
+      name
+    });
+
+  }
+
+  renderConfig();
+
+  closePopups();
+
+}
+
+
+function removeSource(name){
+
+  sources=
+    sources.filter(
+      item=>item.name!==name
+    );
+
+  renderConfig();
+
+}
+
+
+/* =====================================================
+   OUTPUT
+===================================================== */
+
+function openOutputPopup(event){
+
+  event.stopPropagation();
+
+  closeSourcePopup();
+
+  const popup=
+    document.getElementById("outputPopup");
+
+  const rect=
+    event.currentTarget.getBoundingClientRect();
+
+  popup.style.left=
+    Math.min(
+      rect.left,
+      window.innerWidth-popup.offsetWidth-15
+    )+"px";
+
+  popup.style.top=
+    (rect.bottom+8)+"px";
+
+  popup.classList.add("show");
+
+}
+
+
+function addOutput(icon,name){
+
+  output={
+    icon,
+    name
+  };
+
+  renderConfig();
+
+  closePopups();
+
+}
+
+
+function removeOutput(){
+
+  output=null;
+
+  renderConfig();
+
+}
+
+
+/* =====================================================
+   RENDER CONFIG
+===================================================== */
+
+function renderConfig(){
+
+  const bottom=
+    document.getElementById("inputBottom");
+
+  bottom.innerHTML="";
+
+
+  sources.forEach(source=>{
+
+    const chip=
+      document.createElement("button");
+
+    chip.className="config-chip";
+
+    chip.innerHTML=`
+      ${source.icon} ${source.name}
+      <span class="remove">×</span>
+    `;
+
+    chip.onclick=function(){
+
+      removeSource(source.name);
+
+    };
+
+    bottom.appendChild(chip);
+
+  });
+
+
+  if(output){
+
+    const chip=
+      document.createElement("button");
+
+    chip.className="config-chip";
+
+    chip.innerHTML=`
+      ${output.icon} 成品：${output.name}
+      <span class="remove">×</span>
+    `;
+
+    chip.onclick=function(){
+
+      removeOutput();
+
+    };
+
+    bottom.appendChild(chip);
+
+  }
+
+
+  const sourceBtn=
+    document.createElement("button");
+
+  sourceBtn.className="input-action";
+
+  sourceBtn.innerText="＋ 添加资料";
+
+  sourceBtn.onclick=openSourcePopup;
+
+  bottom.appendChild(sourceBtn);
+
+
+  const outputBtn=
+    document.createElement("button");
+
+  outputBtn.className="input-action";
+
+  outputBtn.innerText="＋ 添加成品";
+
+  outputBtn.onclick=openOutputPopup;
+
+  bottom.appendChild(outputBtn);
+
+
+  const hint=
+    document.createElement("div");
+
+  hint.className="input-hint";
+
+  hint.innerText=
+    "支持自然语言描述";
+
+  bottom.appendChild(hint);
+
+
+  updateSummary();
+
+}
+
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+function updateSummary(){
+
+  const summary=
+    document.getElementById("createSummary");
+
+  let text=
+    "<strong>工作配置：</strong>";
+
+
+  const task=
+    document
+      .getElementById("createPrompt")
+      .value
+      .trim();
+
+
+  if(task){
+
+    text+=" 已填写工作任务";
+
+  }else{
+
+    text+=" 等待你的任务描述";
+
+  }
+
+
+  if(sources.length){
+
+    text+=
+      " · 资料："+
+      sources.map(
+        x=>x.name
+      ).join("、");
+
+  }else{
+
+    text+=
+      " · 尚未添加资料";
+
+  }
+
+
+  if(output){
+
+    text+=
+      " · 成品："+output.name;
+
+  }else{
+
+    text+=
+      " · 尚未选择成品";
+
+  }
+
+
+  summary.innerHTML=text;
+
+}
+
+
+document
+  .getElementById("createPrompt")
+  .addEventListener(
+    "input",
+    updateSummary
+  );
+
+
+/* =====================================================
+   CREATE PARTNER
+===================================================== */
+
+function createPartner(){
+
+  const task=
+    document
+      .getElementById("createPrompt")
+      .value
+      .trim();
+
+
+  if(!task){
+
+    showToast(
+      "先告诉伙伴你希望它做什么"
+    );
+
+    return;
+
+  }
+
+
+  if(!sources.length){
+
+    showToast(
+      "添加一个资料来源，让伙伴知道去哪里工作"
+    );
+
+    return;
+
+  }
+
+
+  if(!output){
+
+    showToast(
+      "选择一种成品形式"
+    );
+
+    return;
+
+  }
+
+
+  closeCreate();
+
+
+  showToast(
+    "正在创建伙伴…"
+  );
+
+
+  setTimeout(()=>{
+
+    showToast(
+      "伙伴已创建，正在读取资料"
+    );
+
+
+    setTimeout(()=>{
+
+      openPartner();
+
+    },1000);
+
+  },700);
+
+}
+
+
+/* =====================================================
+   PARTNER
+===================================================== */
+
+function openPartner(){
+
+  document
+    .getElementById("homePage")
+    .style.display="none";
+
+  document
+    .getElementById("partnerPage")
+    .classList.add("show");
+
+  window.scrollTo(0,0);
+
+}
+
+
+function goHome(){
+
+  document
+    .getElementById("partnerPage")
+    .classList.remove("show");
+
+  document
+    .getElementById("homePage")
+    .style.display="block";
+
+}
+
+
+/* =====================================================
+   POPUPS
+===================================================== */
+
+function closeSourcePopup(){
+
+  document
+    .getElementById("sourcePopup")
+    .classList.remove("show");
+
+}
+
+
+function closeOutputPopup(){
+
+  document
+    .getElementById("outputPopup")
+    .classList.remove("show");
+
+}
+
+
+function closePopups(){
+
+  closeSourcePopup();
+
+  closeOutputPopup();
+
+}
+
+
+document.addEventListener(
+  "click",
+  function(e){
+
+    if(
+      !e.target.closest(".select-popup") &&
+      !e.target.closest(".input-action")
+    ){
+
+      closePopups();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(text){
+
+  const toast=
+    document.getElementById("toast");
+
+  toast.innerText=text;
+
+  toast.classList.add("show");
+
+  setTimeout(()=>{
+
+    toast.classList.remove("show");
+
+  },2500);
+
+}
+
+
+/* =====================================================
+   MODAL CLOSE
+===================================================== */
+
+document
+  .getElementById("createOverlay")
+  .addEventListener(
+    "click",
+    function(e){
+
+      if(e.target===this){
+
+        closeCreate();
+
+      }
+
+    }
+  );
+
+</script>
+
+</body>
+</html>
