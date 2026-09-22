@@ -1,0 +1,2147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI伙伴 · 我的工作</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+               "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #1f2329;
+  background: #f5f6f8;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* =========================
+   Layout
+========================= */
+
+.app {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 232px;
+  background: #fff;
+  border-right: 1px solid #e8eaed;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.logo {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 22px;
+  font-size: 17px;
+  font-weight: 650;
+}
+
+.logo-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #3370ff;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 9px;
+  font-weight: 700;
+}
+
+.nav {
+  padding: 8px 12px;
+}
+
+.nav-item {
+  height: 42px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  border-radius: 8px;
+  margin-bottom: 3px;
+  color: #646a73;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  background: #f5f6f7;
+}
+
+.nav-item.active {
+  color: #1f2329;
+  background: #f0f4ff;
+  font-weight: 600;
+}
+
+.nav-icon {
+  width: 25px;
+  font-size: 16px;
+}
+
+.badge {
+  margin-left: auto;
+  background: #ff4d4f;
+  color: #fff;
+  font-size: 11px;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-title {
+  padding: 18px 20px 8px;
+  color: #8f959e;
+  font-size: 12px;
+}
+
+.work-mini {
+  margin: 3px 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.work-mini:hover {
+  background: #f5f6f7;
+}
+
+.work-mini.active {
+  background: #f0f4ff;
+}
+
+.work-dot {
+  width: 8px;
+  height: 8px;
+  background: #3370ff;
+  border-radius: 50%;
+  margin-right: 9px;
+}
+
+.work-dot.green {
+  background: #34a853;
+}
+
+.user {
+  margin-top: auto;
+  padding: 16px;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  background: #dbe7ff;
+  color: #3370ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.user-info {
+  margin-left: 10px;
+  font-size: 13px;
+}
+
+.user-name {
+  font-weight: 600;
+}
+
+.user-plan {
+  color: #8f959e;
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+/* =========================
+   Main
+========================= */
+
+.main {
+  flex: 1;
+  min-width: 0;
+  overflow: auto;
+}
+
+.topbar {
+  height: 64px;
+  background: #fff;
+  border-bottom: 1px solid #e8eaed;
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+}
+
+.search {
+  width: 280px;
+  height: 34px;
+  border: 1px solid #e5e6e8;
+  background: #f7f8fa;
+  border-radius: 7px;
+  padding: 0 12px;
+  outline: none;
+  font-size: 13px;
+}
+
+.top-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.top-link {
+  color: #646a73;
+  font-size: 13px;
+}
+
+.content {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 34px 38px 70px;
+}
+
+/* =========================
+   Home
+========================= */
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 27px;
+  letter-spacing: -0.5px;
+}
+
+.page-header p {
+  margin: 8px 0 0;
+  color: #8f959e;
+  font-size: 14px;
+}
+
+.primary-btn {
+  margin-left: auto;
+  background: #3370ff;
+  border: none;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 7px;
+  font-size: 13px;
+}
+
+.primary-btn:hover {
+  background: #2861df;
+}
+
+.review-banner {
+  background: #fff;
+  border: 1px solid #e8eaed;
+  border-radius: 12px;
+  padding: 17px 20px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.review-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: #fff2cc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 13px;
+}
+
+.review-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.review-desc {
+  font-size: 12px;
+  color: #8f959e;
+  margin-top: 3px;
+}
+
+.review-btn {
+  margin-left: auto;
+  background: none;
+  border: 1px solid #d9dce1;
+  border-radius: 6px;
+  padding: 7px 13px;
+  font-size: 12px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  margin-bottom: 13px;
+}
+
+.section-heading h2 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.section-heading span {
+  color: #8f959e;
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+/* =========================
+   Work Cards
+========================= */
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.work-card {
+  background: #fff;
+  border: 1px solid #e8eaed;
+  border-radius: 12px;
+  padding: 21px;
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.work-card:hover {
+  border-color: #c8d6ff;
+  box-shadow: 0 3px 14px rgba(31,35,41,.05);
+  transform: translateY(-1px);
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+}
+
+.card-icon {
+  width: 42px;
+  height: 42px;
+  background: #f0f4ff;
+  color: #3370ff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+}
+
+.card-title {
+  margin-left: 12px;
+}
+
+.card-title strong {
+  display: block;
+  font-size: 15px;
+}
+
+.card-title small {
+  display: block;
+  margin-top: 4px;
+  color: #8f959e;
+  font-size: 11px;
+}
+
+.status {
+  margin-left: auto;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 10px;
+  background: #edf8ee;
+  color: #299447;
+}
+
+.status.review {
+  background: #fff3df;
+  color: #d27b00;
+}
+
+.card-description {
+  color: #646a73;
+  font-size: 13px;
+  line-height: 1.65;
+  margin: 18px 0;
+}
+
+.card-flow {
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  color: #8f959e;
+}
+
+.flow-step {
+  background: #f5f6f7;
+  border-radius: 5px;
+  padding: 5px 7px;
+}
+
+.flow-arrow {
+  margin: 0 5px;
+  color: #b5bac1;
+}
+
+.card-bottom {
+  border-top: 1px solid #f0f1f2;
+  margin-top: 17px;
+  padding-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  color: #8f959e;
+  font-size: 11px;
+}
+
+/* =========================
+   Detail
+========================= */
+
+.hidden {
+  display: none !important;
+}
+
+.back-btn {
+  border: none;
+  background: none;
+  padding: 0;
+  color: #646a73;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+}
+
+.detail-header .card-icon {
+  width: 48px;
+  height: 48px;
+}
+
+.detail-name {
+  margin-left: 13px;
+}
+
+.detail-name h1 {
+  font-size: 23px;
+  margin: 0;
+}
+
+.detail-name p {
+  margin: 5px 0 0;
+  color: #8f959e;
+  font-size: 12px;
+}
+
+.detail-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+}
+
+.secondary-btn {
+  background: #fff;
+  border: 1px solid #d9dce1;
+  padding: 8px 13px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 310px;
+  gap: 18px;
+  margin-top: 25px;
+}
+
+.panel {
+  background: #fff;
+  border: 1px solid #e8eaed;
+  border-radius: 11px;
+  padding: 21px;
+  margin-bottom: 16px;
+}
+
+.panel-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+/* Progress */
+
+.progress-line {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.progress-line:before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  right: 18px;
+  height: 2px;
+  background: #e7e9ed;
+}
+
+.progress-item {
+  position: relative;
+  flex: 1;
+  text-align: center;
+}
+
+.progress-dot {
+  width: 28px;
+  height: 28px;
+  margin: auto;
+  border-radius: 50%;
+  background: #f0f1f3;
+  color: #8f959e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  border: 3px solid #fff;
+}
+
+.progress-item.done .progress-dot {
+  background: #3370ff;
+  color: #fff;
+}
+
+.progress-item.current .progress-dot {
+  background: #fff;
+  color: #3370ff;
+  border: 2px solid #3370ff;
+}
+
+.progress-item span {
+  display: block;
+  margin-top: 8px;
+  font-size: 11px;
+  color: #8f959e;
+}
+
+.progress-item.done span,
+.progress-item.current span {
+  color: #1f2329;
+}
+
+/* Source */
+
+.source {
+  display: flex;
+  align-items: center;
+  padding: 11px 0;
+  border-bottom: 1px solid #f0f1f2;
+}
+
+.source:last-child {
+  border-bottom: 0;
+}
+
+.source-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  background: #f1f4f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.source-name {
+  font-size: 12px;
+}
+
+.source-info {
+  color: #9aa0a8;
+  font-size: 10px;
+  margin-top: 3px;
+}
+
+.add-source {
+  width: 100%;
+  margin-top: 12px;
+  border: 1px dashed #cfd3d9;
+  background: #fafbfc;
+  padding: 9px;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #646a73;
+}
+
+/* Work method */
+
+.method-box {
+  background: #f7f8fa;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #454b54;
+}
+
+.method-box strong {
+  color: #1f2329;
+}
+
+/* Delivery */
+
+.delivery {
+  display: flex;
+  align-items: center;
+}
+
+.delivery-doc {
+  flex: 1;
+}
+
+.doc-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: #eef7ee;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.doc-title {
+  font-size: 13px;
+}
+
+.doc-status {
+  font-size: 11px;
+  color: #299447;
+  margin-top: 4px;
+}
+
+.review-small {
+  border: 1px solid #d9dce1;
+  background: #fff;
+  padding: 7px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+}
+
+/* =========================
+   Review
+========================= */
+
+.review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.review-card {
+  background: #fff;
+  border: 1px solid #e8eaed;
+  border-radius: 10px;
+  padding: 17px;
+  display: flex;
+  align-items: center;
+}
+
+.review-card-icon {
+  width: 42px;
+  height: 42px;
+  background: #f0f4ff;
+  color: #3370ff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.review-card-info {
+  margin-left: 12px;
+}
+
+.review-card-info strong {
+  font-size: 13px;
+}
+
+.review-card-info p {
+  margin: 5px 0 0;
+  color: #8f959e;
+  font-size: 11px;
+}
+
+.review-card-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 7px;
+}
+
+/* =========================
+   Modal
+========================= */
+
+.mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.38);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal {
+  width: 560px;
+  max-width: calc(100vw - 30px);
+  max-height: 90vh;
+  overflow: auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 15px 50px rgba(0,0,0,.18);
+}
+
+.modal-header {
+  padding: 20px 22px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.close {
+  margin-left: auto;
+  border: none;
+  background: none;
+  font-size: 20px;
+  color: #8f959e;
+}
+
+.modal-body {
+  padding: 22px;
+}
+
+.form-label {
+  font-size: 12px;
+  color: #646a73;
+  margin-bottom: 7px;
+  display: block;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 105px;
+  resize: vertical;
+  border: 1px solid #d9dce1;
+  border-radius: 7px;
+  padding: 11px;
+  outline: none;
+}
+
+.input,
+.select {
+  width: 100%;
+  height: 38px;
+  border: 1px solid #d9dce1;
+  border-radius: 7px;
+  padding: 0 10px;
+  outline: none;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.ai-understand {
+  background: #f5f8ff;
+  border-radius: 8px;
+  padding: 14px;
+  color: #454b54;
+  font-size: 12px;
+  line-height: 1.7;
+  margin-top: 12px;
+}
+
+.modal-footer {
+  padding: 15px 22px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* Settings */
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #f0f1f2;
+}
+
+.setting-row:last-child {
+  border-bottom: none;
+}
+
+.setting-info {
+  flex: 1;
+}
+
+.setting-title {
+  font-size: 13px;
+}
+
+.setting-desc {
+  font-size: 11px;
+  color: #8f959e;
+  margin-top: 4px;
+}
+
+.switch {
+  width: 38px;
+  height: 22px;
+  background: #cfd3d9;
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+}
+
+.switch:after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border-radius: 50%;
+  transition: .2s;
+}
+
+.switch.on {
+  background: #3370ff;
+}
+
+.switch.on:after {
+  left: 19px;
+}
+
+/* =========================
+   Toast
+========================= */
+
+.toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(15px);
+  background: #1f2329;
+  color: #fff;
+  padding: 10px 17px;
+  border-radius: 7px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: .2s;
+  z-index: 300;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media(max-width: 800px) {
+  .sidebar {
+    width: 64px;
+  }
+
+  .logo span,
+  .nav-item span:not(.nav-icon),
+  .section-title,
+  .work-mini span:last-child,
+  .user-info {
+    display: none;
+  }
+
+  .logo {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .nav-item {
+    justify-content: center;
+  }
+
+  .work-mini {
+    justify-content: center;
+  }
+
+  .work-dot {
+    margin: 0;
+  }
+
+  .content {
+    padding: 25px 18px 50px;
+  }
+
+  .work-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- ================= Sidebar ================= -->
+  <aside class="sidebar">
+
+    <div class="logo">
+      <div class="logo-icon">AI</div>
+      <span>AI伙伴</span>
+    </div>
+
+    <nav class="nav">
+
+      <div class="nav-item active" data-page="home">
+        <span class="nav-icon">⌂</span>
+        <span>我的工作</span>
+      </div>
+
+      <div class="nav-item" data-page="sources">
+        <span class="nav-icon">▣</span>
+        <span>工作资料</span>
+      </div>
+
+      <div class="nav-item" data-page="review">
+        <span class="nav-icon">✓</span>
+        <span>待我 Review</span>
+        <span class="badge">2</span>
+      </div>
+
+    </nav>
+
+    <div class="section-title">我的工作</div>
+
+    <div class="work-mini active" data-work="weekly">
+      <span class="work-dot"></span>
+      <span>每周工作周报</span>
+    </div>
+
+    <div class="work-mini" data-work="project">
+      <span class="work-dot green"></span>
+      <span>项目进展整理</span>
+    </div>
+
+    <div class="work-mini" data-work="meeting">
+      <span class="work-dot green"></span>
+      <span>会议材料</span>
+    </div>
+
+    <div class="user">
+      <div class="avatar">W</div>
+      <div class="user-info">
+        <div class="user-name">我的账号</div>
+        <div class="user-plan">AI伙伴</div>
+      </div>
+    </div>
+
+  </aside>
+
+
+  <!-- ================= Main ================= -->
+
+  <main class="main">
+
+    <div class="topbar">
+      <input class="search" placeholder="搜索工作、资料……">
+
+      <div class="top-actions">
+        <span class="top-link">帮助</span>
+        <span class="top-link">设置</span>
+      </div>
+    </div>
+
+
+    <!-- ================= HOME ================= -->
+
+    <section id="homePage" class="content">
+
+      <div class="page-header">
+
+        <div>
+          <h1>我的工作</h1>
+          <p>这些工作已经交给 AI 持续负责。</p>
+        </div>
+
+        <button class="primary-btn" id="createBtn">
+          ＋ 交给 AI 一项工作
+        </button>
+
+      </div>
+
+
+      <div class="review-banner">
+
+        <div class="review-icon">✓</div>
+
+        <div>
+          <div class="review-title">
+            有 2 项工作已经准备好，等你 Review
+          </div>
+          <div class="review-desc">
+            AI 已经完成整理，你确认后即可交付。
+          </div>
+        </div>
+
+        <button class="review-btn" id="reviewBtn">
+          去 Review
+        </button>
+
+      </div>
+
+
+      <div class="section-heading">
+        <h2>正在负责</h2>
+        <span>3 项工作</span>
+      </div>
+
+
+      <div class="work-grid">
+
+        <!-- Work 1 -->
+
+        <div class="work-card" data-work-card="weekly">
+
+          <div class="card-top">
+
+            <div class="card-icon">▤</div>
+
+            <div class="card-title">
+              <strong>每周工作周报</strong>
+              <small>AI 正在持续维护</small>
+            </div>
+
+            <div class="status review">
+              待 Review
+            </div>
+
+          </div>
+
+          <div class="card-description">
+            每天读取工作资料，把新的工作记录整理进本周周报；
+            每周结束后检查完整性，并准备下一周的周报。
+          </div>
+
+          <div class="card-flow">
+
+            <div class="flow-step">工作资料</div>
+            <div class="flow-arrow">→</div>
+
+            <div class="flow-step">整理</div>
+            <div class="flow-arrow">→</div>
+
+            <div class="flow-step">更新周报</div>
+            <div class="flow-arrow">→</div>
+
+            <div class="flow-step">Review</div>
+
+          </div>
+
+          <div class="card-bottom">
+            <span>每天处理 · 每周交付</span>
+            <span>›</span>
+          </div>
+
+        </div>
+
+
+        <!-- Work 2 -->
+
+        <div class="work-card" data-work-card="project">
+
+          <div class="card-top">
+
+            <div class="card-icon">◫</div>
+
+            <div class="card-title">
+              <strong>项目进展整理</strong>
+              <small>AI 正在持续整理</small>
+            </div>
+
+            <div class="status">
+              进行中
+            </div>
+
+          </div>
+
+          <div class="card-description">
+            持续读取项目资料，将分散的进展、问题和待办整理成
+            一份清晰的项目进展文档。
+          </div>
+
+          <div class="card-flow">
+
+            <div class="flow-step">项目资料</div>
+            <div class="flow-arrow">→</div>
+
+            <div class="flow-step">提取变化</div>
+            <div class="flow-arrow">→</div>
+
+            <div class="flow-step">整理进展</div>
+            <div class="flow-arrow">→</div>
+
+            <div class="flow-step">更新</div>
+
+          </div>
+
+          <div class="card-bottom">
+            <span>有新资料就处理</span>
+            <span>›</span>
+          </div>
+
+        </div>
+
+
+        <!-- Work 3 -->
+
+        <div class="work-card" data-work-card="meeting">
+
+          <div class="card-top">
+
+            <div class="card-icon">▥</div>
+
+            <div class="card-title">
+              <strong>会议材料</strong>
+              <small>下次会议前准备</small>
+            </div>
+
+            <div class="status">
+              进行中
+            </div>
+
+          </div>
+
+          <div class="card-description">
+            根据已有工作资料整理会议背景、最新进展、问题和
+            需要讨论的事项，提前准备会议材料。
+          </div>
+
+          <div class="card-flow">
+
+            <div class="flow-step">工作资料</div>
+            <div class="flow-arrow">→</div>
+
+            <div class="flow-step">提取重点</div>
+            <div class="flow-arrow">→</div>
+
+            <div class="flow-step">会议材料</div>
+
+          </div>
+
+          <div class="card-bottom">
+            <span>会议前自动准备</span>
+            <span>›</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= DETAIL ================= -->
+
+    <section id="detailPage" class="content hidden">
+
+      <button class="back-btn" id="backHome">← 我的工作</button>
+
+      <div class="detail-header">
+
+        <div class="card-icon">▤</div>
+
+        <div class="detail-name">
+          <h1 id="detailTitle">每周工作周报</h1>
+          <p id="detailSubtitle">AI 正在持续维护这项工作</p>
+        </div>
+
+        <div class="detail-actions">
+
+          <button class="secondary-btn" id="pauseBtn">
+            暂停
+          </button>
+
+          <button class="secondary-btn" id="adjustBtn">
+            调整工作方式
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="detail-grid">
+
+        <div>
+
+          <!-- Progress -->
+
+          <div class="panel">
+
+            <div class="panel-title">现在做到哪一步了</div>
+
+            <div class="progress-line">
+
+              <div class="progress-item done">
+                <div class="progress-dot">✓</div>
+                <span>读取资料</span>
+              </div>
+
+              <div class="progress-item done">
+                <div class="progress-dot">✓</div>
+                <span>整理内容</span>
+              </div>
+
+              <div class="progress-item done">
+                <div class="progress-dot">✓</div>
+                <span>更新周报</span>
+              </div>
+
+              <div class="progress-item current">
+                <div class="progress-dot">4</div>
+                <span>自动检查</span>
+              </div>
+
+              <div class="progress-item">
+                <div class="progress-dot">5</div>
+                <span>Review</span>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- Delivery -->
+
+          <div class="panel">
+
+            <div class="panel-title">最近一次交付</div>
+
+            <div class="delivery">
+
+              <div class="doc-icon">▤</div>
+
+              <div class="delivery-doc">
+
+                <div class="doc-title">
+                  2026年第38周工作周报
+                </div>
+
+                <div class="doc-status">
+                  ✓ AI 已完成，等待你 Review
+                </div>
+
+              </div>
+
+              <button class="review-small" id="openDocBtn">
+                查看
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- Work method -->
+
+          <div class="panel">
+
+            <div class="panel-title">AI 是这样负责这项工作的</div>
+
+            <div class="method-box">
+
+              每天检查你提供的<strong>工作资料</strong>，
+              有新的内容就整理进当前周报。
+
+              <br><br>
+
+              每周结束后，AI 会自动检查周报是否完整；
+              到新的一周时，创建新的周报继续维护。
+
+              <br><br>
+
+              完成后通知你 <strong>Review</strong>，
+              你确认后再作为最终版本。
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- Right -->
+
+        <div>
+
+          <div class="panel">
+
+            <div class="panel-title">工作资料</div>
+
+            <div class="source">
+
+              <div class="source-icon">▱</div>
+
+              <div>
+                <div class="source-name">工作记录</div>
+                <div class="source-info">12 个文档</div>
+              </div>
+
+            </div>
+
+            <div class="source">
+
+              <div class="source-icon">▱</div>
+
+              <div>
+                <div class="source-name">项目资料</div>
+                <div class="source-info">8 个文档</div>
+              </div>
+
+            </div>
+
+            <button class="add-source" id="addSourceBtn">
+              ＋ 添加工作资料
+            </button>
+
+          </div>
+
+
+          <div class="panel">
+
+            <div class="panel-title">工作节奏</div>
+
+            <div style="font-size:13px;line-height:1.8;">
+              每天处理<br>
+              <span style="color:#8f959e;">
+                有新资料就整理
+              </span>
+
+              <br><br>
+
+              每周交付<br>
+              <span style="color:#8f959e;">
+                周一准备下一份周报
+              </span>
+            </div>
+
+          </div>
+
+
+          <div class="panel">
+
+            <div class="panel-title">工作状态</div>
+
+            <div style="font-size:12px;color:#299447;">
+              ● AI 正在负责
+            </div>
+
+            <div style="font-size:11px;color:#8f959e;margin-top:8px;">
+              上次处理：今天 18:32
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= SOURCES ================= -->
+
+    <section id="sourcesPage" class="content hidden">
+
+      <div class="page-header">
+
+        <div>
+          <h1>工作资料</h1>
+          <p>AI 可以使用的工作资料都集中在这里。</p>
+        </div>
+
+        <button class="primary-btn" id="addSourceTop">
+          ＋ 添加资料
+        </button>
+
+      </div>
+
+      <div class="panel">
+
+        <div class="panel-title">我的资料来源</div>
+
+        <div class="source">
+
+          <div class="source-icon">▱</div>
+
+          <div>
+            <div class="source-name">工作记录</div>
+            <div class="source-info">12 个文档 · 最近更新今天</div>
+          </div>
+
+        </div>
+
+        <div class="source">
+
+          <div class="source-icon">▱</div>
+
+          <div>
+            <div class="source-name">项目资料</div>
+            <div class="source-info">8 个文档 · 最近更新昨天</div>
+          </div>
+
+        </div>
+
+        <div class="source">
+
+          <div class="source-icon">▱</div>
+
+          <div>
+            <div class="source-name">会议记录</div>
+            <div class="source-info">23 个文档 · 最近更新周一</div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= REVIEW ================= -->
+
+    <section id="reviewPage" class="content hidden">
+
+      <div class="page-header">
+
+        <div>
+          <h1>待我 Review</h1>
+          <p>AI 已经完成，你只需要确认最终结果。</p>
+        </div>
+
+      </div>
+
+      <div class="review-list">
+
+        <div class="review-card">
+
+          <div class="review-card-icon">▤</div>
+
+          <div class="review-card-info">
+            <strong>2026年第38周工作周报</strong>
+            <p>每周工作周报 · AI 已完成整理</p>
+          </div>
+
+          <div class="review-card-actions">
+
+            <button class="secondary-btn" onclick="showToast('已打开周报')">
+              查看
+            </button>
+
+            <button class="primary-btn"
+                    style="margin:0;padding:7px 12px;"
+                    onclick="approveReview(this)">
+              确认
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="review-card">
+
+          <div class="review-card-icon">◫</div>
+
+          <div class="review-card-info">
+            <strong>本周项目进展</strong>
+            <p>项目进展整理 · AI 已完成更新</p>
+          </div>
+
+          <div class="review-card-actions">
+
+            <button class="secondary-btn" onclick="showToast('已打开项目进展')">
+              查看
+            </button>
+
+            <button class="primary-btn"
+                    style="margin:0;padding:7px 12px;"
+                    onclick="approveReview(this)">
+              确认
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- ================= CREATE MODAL ================= -->
+
+<div class="mask hidden" id="createMask">
+
+  <div class="modal">
+
+    <div class="modal-header">
+
+      <h2>把一项工作交给 AI</h2>
+
+      <button class="close" onclick="closeModal('createMask')">
+        ×
+      </button>
+
+    </div>
+
+    <div class="modal-body">
+
+      <div class="form-group">
+
+        <label class="form-label">
+          你希望 AI 长期帮你负责什么？
+        </label>
+
+        <textarea
+          class="textarea"
+          id="workPrompt"
+          placeholder="例如：帮我负责每周周报。我把每天的工作记录放在工作资料文件夹里，你每天整理，每周一准备好下一周的周报，我最后 Review。"
+        ></textarea>
+
+      </div>
+
+      <button class="primary-btn"
+              id="understandBtn"
+              style="margin:0;">
+        让 AI 理解这项工作
+      </button>
+
+      <div class="ai-understand hidden" id="aiUnderstand">
+
+        <strong>我理解你想让我负责：</strong>
+
+        <br>
+
+        ① 每天读取你提供的工作资料
+
+        <br>
+
+        ② 把新的工作内容整理进当前周报
+
+        <br>
+
+        ③ 每周完成一次完整检查
+
+        <br>
+
+        ④ 新的一周自动准备新的周报
+
+        <br>
+
+        ⑤ 完成后通知你 Review
+
+      </div>
+
+
+      <div class="form-group hidden" id="sourceSelect">
+
+        <label class="form-label">
+          这项工作使用哪些资料？
+        </label>
+
+        <select class="select">
+          <option>工作记录</option>
+          <option>工作记录 + 项目资料</option>
+          <option>会议记录 + 项目资料</option>
+        </select>
+
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+
+      <button class="secondary-btn"
+              onclick="closeModal('createMask')">
+        取消
+      </button>
+
+      <button class="primary-btn"
+              id="confirmCreate"
+              style="margin:0;"
+              disabled>
+        确认交给 AI
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ================= SETTINGS MODAL ================= -->
+
+<div class="mask hidden" id="settingsMask">
+
+  <div class="modal">
+
+    <div class="modal-header">
+
+      <h2>调整工作方式</h2>
+
+      <button class="close" onclick="closeModal('settingsMask')">
+        ×
+      </button>
+
+    </div>
+
+    <div class="modal-body">
+
+      <div class="form-group">
+
+        <label class="form-label">工作方式</label>
+
+        <textarea class="textarea">每天检查工作资料，有变化就更新当前周报；每周一创建下一份周报；完成后通知我 Review。</textarea>
+
+      </div>
+
+      <div class="form-group">
+
+        <label class="form-label">更新频率</label>
+
+        <select class="select">
+          <option>每天检查</option>
+          <option>工作日检查</option>
+          <option>每周检查</option>
+          <option>有资料变化时检查</option>
+        </select>
+
+      </div>
+
+
+      <div class="setting-row">
+
+        <div class="setting-info">
+          <div class="setting-title">持续维护当前文档</div>
+          <div class="setting-desc">
+            有新资料时更新当前周报
+          </div>
+        </div>
+
+        <div class="switch on"></div>
+
+      </div>
+
+
+      <div class="setting-row">
+
+        <div class="setting-info">
+          <div class="setting-title">新周期自动创建文档</div>
+          <div class="setting-desc">
+            新的一周自动创建下一份周报
+          </div>
+        </div>
+
+        <div class="switch on"></div>
+
+      </div>
+
+
+      <div class="setting-row">
+
+        <div class="setting-info">
+          <div class="setting-title">自动检查</div>
+          <div class="setting-desc">
+            交付前检查内容完整性和格式
+          </div>
+        </div>
+
+        <div class="switch on"></div>
+
+      </div>
+
+
+      <div class="setting-row">
+
+        <div class="setting-info">
+          <div class="setting-title">完成后通知我 Review</div>
+          <div class="setting-desc">
+            AI 完成后提醒你确认
+          </div>
+        </div>
+
+        <div class="switch on"></div>
+
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+
+      <button class="secondary-btn"
+              onclick="closeModal('settingsMask')">
+        取消
+      </button>
+
+      <button class="primary-btn"
+              id="saveSettings"
+              style="margin:0;">
+        保存
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- Toast -->
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* =========================
+   Page switching
+========================= */
+
+const pages = {
+  home: document.getElementById("homePage"),
+  detail: document.getElementById("detailPage"),
+  sources: document.getElementById("sourcesPage"),
+  review: document.getElementById("reviewPage")
+};
+
+function showPage(name) {
+
+  Object.values(pages).forEach(page => {
+    page.classList.add("hidden");
+  });
+
+  pages[name].classList.remove("hidden");
+
+  document.querySelectorAll(".nav-item").forEach(item => {
+    item.classList.remove("active");
+  });
+
+  const nav = document.querySelector(
+    `.nav-item[data-page="${name}"]`
+  );
+
+  if (nav) nav.classList.add("active");
+}
+
+
+/* =========================
+   Navigation
+========================= */
+
+document.querySelectorAll(".nav-item").forEach(item => {
+
+  item.addEventListener("click", () => {
+
+    const page = item.dataset.page;
+
+    showPage(page);
+
+  });
+
+});
+
+
+/* =========================
+   Work cards
+========================= */
+
+document.querySelectorAll(".work-card").forEach(card => {
+
+  card.addEventListener("click", () => {
+
+    openWork(card.dataset.workCard);
+
+  });
+
+});
+
+
+document.querySelectorAll(".work-mini").forEach(item => {
+
+  item.addEventListener("click", () => {
+
+    document.querySelectorAll(".work-mini")
+      .forEach(x => x.classList.remove("active"));
+
+    item.classList.add("active");
+
+    openWork(item.dataset.work);
+
+  });
+
+});
+
+
+function openWork(type) {
+
+  showPage("detail");
+
+  const title = document.getElementById("detailTitle");
+  const subtitle = document.getElementById("detailSubtitle");
+
+  if (type === "weekly") {
+
+    title.textContent = "每周工作周报";
+
+    subtitle.textContent =
+      "AI 正在持续维护这项工作";
+
+  }
+
+  if (type === "project") {
+
+    title.textContent = "项目进展整理";
+
+    subtitle.textContent =
+      "AI 正在持续整理项目资料";
+
+  }
+
+  if (type === "meeting") {
+
+    title.textContent = "会议材料";
+
+    subtitle.textContent =
+      "AI 正在为下一次会议准备材料";
+
+  }
+
+}
+
+
+/* =========================
+   Back
+========================= */
+
+document.getElementById("backHome")
+  .addEventListener("click", () => {
+    showPage("home");
+  });
+
+
+/* =========================
+   Review
+========================= */
+
+document.getElementById("reviewBtn")
+  .addEventListener("click", () => {
+    showPage("review");
+  });
+
+
+function approveReview(button) {
+
+  const card = button.closest(".review-card");
+
+  card.style.opacity = ".5";
+
+  button.disabled = true;
+  button.textContent = "已确认";
+
+  showToast("已确认，AI 会继续负责后续工作");
+
+}
+
+
+/* =========================
+   Create Work
+========================= */
+
+document.getElementById("createBtn")
+  .addEventListener("click", () => {
+
+    document.getElementById("createMask")
+      .classList.remove("hidden");
+
+  });
+
+
+document.getElementById("understandBtn")
+  .addEventListener("click", () => {
+
+    const prompt =
+      document.getElementById("workPrompt").value.trim();
+
+    if (!prompt) {
+
+      showToast("先告诉 AI 你想交给它什么工作");
+
+      return;
+
+    }
+
+    document.getElementById("aiUnderstand")
+      .classList.remove("hidden");
+
+    document.getElementById("sourceSelect")
+      .classList.remove("hidden");
+
+    document.getElementById("confirmCreate").disabled = false;
+
+  });
+
+
+document.getElementById("confirmCreate")
+  .addEventListener("click", () => {
+
+    closeModal("createMask");
+
+    showToast("这项工作已经交给 AI");
+
+    setTimeout(() => {
+
+      showPage("home");
+
+    }, 700);
+
+  });
+
+
+/* =========================
+   Adjust
+========================= */
+
+document.getElementById("adjustBtn")
+  .addEventListener("click", () => {
+
+    document.getElementById("settingsMask")
+      .classList.remove("hidden");
+
+  });
+
+
+document.getElementById("saveSettings")
+  .addEventListener("click", () => {
+
+    closeModal("settingsMask");
+
+    showToast("工作方式已更新");
+
+  });
+
+
+/* =========================
+   Pause
+========================= */
+
+let paused = false;
+
+document.getElementById("pauseBtn")
+  .addEventListener("click", function() {
+
+    paused = !paused;
+
+    this.textContent = paused ? "继续工作" : "暂停";
+
+    showToast(
+      paused
+        ? "AI 已暂停这项工作"
+        : "AI 已继续负责这项工作"
+    );
+
+  });
+
+
+/* =========================
+   Sources
+========================= */
+
+document.getElementById("addSourceBtn")
+  .addEventListener("click", () => {
+
+    showToast("这里可以选择工作文件夹或文档");
+
+  });
+
+
+document.getElementById("addSourceTop")
+  .addEventListener("click", () => {
+
+    showToast("这里可以选择工作文件夹或文档");
+
+  });
+
+
+/* =========================
+   Open document
+========================= */
+
+document.getElementById("openDocBtn")
+  .addEventListener("click", () => {
+
+    showToast("打开：2026年第38周工作周报");
+
+  });
+
+
+/* =========================
+   Switches
+========================= */
+
+document.querySelectorAll(".switch").forEach(sw => {
+
+  sw.addEventListener("click", () => {
+
+    sw.classList.toggle("on");
+
+  });
+
+});
+
+
+/* =========================
+   Modal
+========================= */
+
+function closeModal(id) {
+
+  document.getElementById(id)
+    .classList.add("hidden");
+
+}
+
+
+document.querySelectorAll(".mask").forEach(mask => {
+
+  mask.addEventListener("click", event => {
+
+    if (event.target === mask) {
+
+      mask.classList.add("hidden");
+
+    }
+
+  });
+
+});
+
+
+document.addEventListener("keydown", event => {
+
+  if (event.key === "Escape") {
+
+    document.querySelectorAll(".mask")
+      .forEach(mask => mask.classList.add("hidden"));
+
+  }
+
+});
+
+
+/* =========================
+   Toast
+========================= */
+
+let toastTimer;
+
+function showToast(message) {
+
+  const toast = document.getElementById("toast");
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer = setTimeout(() => {
+
+    toast.classList.remove("show");
+
+  }, 2200);
+
+}
+
+</script>
+
+</body>
+</html>
